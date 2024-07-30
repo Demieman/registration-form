@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>E-commerce Signup</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    input[type=text], input[type=password], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>E-commerce Signup</h2>
+    <form action="/register" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="middleName">Middle Name:</label>
+      <input type="text" id="middleName" name="middleName" placeholder="Enter your middle name">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <label for="items">Items:</label>
+      <select id="items" name="items" multiple>
+        <option value="item1">Item 1</option>
+        <option value="item2">Item 2</option>
+        <option value="item3">Item 3</option>
+      </select>
+
+      <label for="itemPrice">Item Price:</label>
+      <input type="text" id="itemPrice" name="itemPrice" placeholder="Enter item price" required>
+
+      <label for="beds">Beds:</label>
+      <select id="beds" name="beds" multiple>
+        <option value="bed1">Bed 1</option>
+        <option value="bed2">Bed 2</option>
+        <option value="bed3">Bed 3</option>
+      </select>
+
+      <label for="bedPrice">Bed Price:</label>
+      <input type="text" id="bedPrice" name="bedPrice" placeholder="Enter bed price" required>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+      <label for="id">ID Number:</label>
+      <input type="text" id="id" name="id" placeholder="Enter your ID number" required>
+
+      <button type="submit">submit</button>
+    </form>
+  </div>
+    <script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    var formData = {
+      name: document.getElementById('name').value,
+      username: document.getElementById('username').value,
+      middleName: document.getElementById('middleName').value,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+      items: Array.from(document.getElementById('items').selectedOptions).map(option => option.value),
+      itemPrice: document.getElementById('itemPrice').value,
+      beds: Array.from(document.getElementById('beds').selectedOptions).map(option => option.value),
+      bedPrice: document.getElementById('bedPrice').value,
+      gender: document.getElementById('gender').value,
+      phone: document.getElementById('phone').value,
+      id: document.getElementById('id').value
+    };
+
+    if (validateForm(formData)) {
+      sendFormData(formData);
+    }
+  });
+  function validateForm(formData) {
+    
+    return true; 
+  }
+  function sendFormData(formData) {
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Registration successful');
+      } else {
+        console.error('Registration failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+</script>
+  
+</body>
+</html>
